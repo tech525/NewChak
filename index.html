@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Dividend Tracker</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('/static/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.6); /* Adds slight opacity for readability */
+            border-radius: 15px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        input[type="file"],
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="file"] {
+            background-color: #007BFF;
+            color: white;
+        }
+        button {
+            background-color: #28A745;
+            color: white;
+        }
+        .progress-bar {
+            margin: 20px auto;
+            width: 80%;
+            background-color: #333;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 20px;
+        }
+        .progress-bar div {
+            height: 100%;
+            width: 0%;
+            background-color: #4CAF50;
+            transition: width 0.5s;
+        }
+    </style>
+    <script>
+        function showProgress() {
+            const progressBar = document.getElementById('progress-bar-fill');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                progressBar.style.width = progress + '%';
+                if (progress >= 100) clearInterval(interval);
+            }, 500);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Dividend Tracker</h1>
+        <p>Upload your input file which contains two columns:<br> a) Stock Name b) Number of Stocks (e.g., REC.BO, 50).</p>
+        <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="showProgress()">
+            <input type="file" name="file" required>
+            <button type="submit">Upload</button>
+        </form>
+        <div class="progress-bar">
+            <div id="progress-bar-fill"></div>
+        </div>
+        <button disabled>Download File</button>
+    </div>
+</body>
+</html>
